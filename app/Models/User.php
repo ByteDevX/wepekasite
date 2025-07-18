@@ -42,6 +42,6 @@ class User extends Authenticatable
 
     public function qrLink()
     {
-        return $this->hasOne(QRLink::class);
+        return $this->hasOne(QrLink::class);
     }
 }
