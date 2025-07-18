@@ -7,7 +7,7 @@ services:
         container_name: wepeka-site
         environment:
             APP_ENV:           ${APP_ENV:-production}
-            APP_DEBUG:         "false"
+            APP_DEBUG:         "true"
             LOG_CHANNEL:       stderr
             APP_KEY:           ${APP_KEY:-base64:K/yaVIitrGE81f3q946V5WWmZAhMI2Cg5iQLD52zuvo=}
 
