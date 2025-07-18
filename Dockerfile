@@ -77,5 +77,5 @@ RUN composer run-script post-autoload-dump --no-dev --no-interaction
 RUN chown -R www-data:www-data storage bootstrap/cache
 
 USER www-data
-EXPOSE 9001
+EXPOSE 9000
 CMD ["php-fpm"]

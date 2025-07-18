@@ -26,7 +26,7 @@ services:
         networks:
             - wepeka_site-net
         expose:
-            - "9001"
+            - "9000"
 
 
     ukmpe-web:
