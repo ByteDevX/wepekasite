@@ -1,0 +1,53 @@
+services:
+    wepeka-site:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: always
+        container_name: wepeka-site
+        environment:
+            APP_ENV:           ${APP_ENV:-production}
+            APP_DEBUG:         "false"
+            LOG_CHANNEL:       stderr
+            APP_KEY:           ${APP_KEY:-base64:K/yaVIitrGE81f3q946V5WWmZAhMI2Cg5iQLD52zuvo=}
+
+            # Database → point to your external service
+            DB_CONNECTION:     mysql
+            DB_HOST:           ${DB_HOST:-23.106.253.46}
+            DB_PORT:           ${DB_PORT:-3306}
+            DB_DATABASE:       ${DB_DATABASE:-kevinch2_wepekasite}
+            DB_USERNAME:       ${DB_USERNAME:-kevinch2_access}
+            DB_PASSWORD:       ${DB_PASSWORD:-ACCESS!def00}
+#            GOOGLE_CLIENT_ID:  ${GOOGLE_CLIENT_ID}
+#            GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+#            GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI}
+        volumes:
+            - drive_wepekasite:/var/www/
+        networks:
+            - wepeka_site-net
+        expose:
+            - "9001"
+
+
+    ukmpe-web:
+        build: ./nginx
+        depends_on:
+            - wepeka-site
+        restart: always
+        container_name: wepeka-web
+        volumes:
+            - drive_wepekasite:/var/www/
+        expose:
+            - "80"                              # HTTP for NPM
+
+        networks:
+            - wepeka_site-net                           # to reach sce:9000
+            - link0                             # external network NPM uses
+
+volumes:
+    drive_wepekasite:
+
+networks:
+    wepeka_site-net:
+    link0:
+        external: true
