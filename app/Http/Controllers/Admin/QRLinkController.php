@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\QrLink;
+use App\Models\QRLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -45,7 +45,7 @@ class QrLinkController extends Controller
 
         $qrCodeSvg = QrCode::format('svg')->size(300)->generate($qrData);
 
-        QrLink::create([
+        QRLink::create([
             'user_id' => $user->id,
             'event_name' => $validated['event_name'],
             'file_type' => $validated['file_type'],
